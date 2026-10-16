@@ -1,0 +1,75 @@
+name: Publish JDH Backlog
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile and test
+        run: |
+          npm run compile
+          node test/run.js
+
+      - name: Verify tag matches package version
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
+          if [ "$TAG_NAME" != "v$PACKAGE_VERSION" ]; then
+            echo "Tag $TAG_NAME must match package version v$PACKAGE_VERSION." >&2
+            exit 1
+          fi
+
+      - name: Verify publishing credentials
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: |
+          if [ -z "$VSCE_PAT" ]; then
+            echo "VSCE_PAT repository secret is required to publish to the Visual Studio Marketplace." >&2
+            exit 1
+          fi
+          if [ -z "$OVSX_PAT" ]; then
+            echo "OVSX_PAT repository secret is required to publish to Open VSX." >&2
+            exit 1
+          fi
+
+      - name: Package VSIX
+        run: npx --yes @vscode/vsce package
+
+      - name: Publish to Visual Studio Marketplace
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          npx --yes @vscode/vsce publish \
+            --packagePath "jdh-backlog-${VERSION}.vsix" \
+            --pat "$VSCE_PAT"
+
+      - name: Publish to Open VSX
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          npx --yes ovsx publish \
+            --packagePath "jdh-backlog-${VERSION}.vsix" \
+            --pat "$OVSX_PAT"

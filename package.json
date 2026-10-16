@@ -1,0 +1,241 @@
+{
+  "activationEvents": [
+    "onView:swasthalinkTodo.backlog",
+    "onCommand:swasthalinkTodo.moveToInbox",
+    "onCommand:swasthalinkTodo.moveToNow",
+    "onCommand:swasthalinkTodo.moveToNext",
+    "onCommand:swasthalinkTodo.moveToLater",
+    "onCommand:swasthalinkTodo.moveToParked",
+    "onCommand:swasthalinkTodo.moveToDone",
+    "onCommand:swasthalinkTodo.moveCardTo",
+    "onCommand:swasthalinkTodo.newCard",
+    "onCommand:swasthalinkTodo.openCard",
+    "onCommand:swasthalinkTodo.refresh"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "category": "JDH Backlog",
+        "command": "swasthalinkTodo.moveToInbox",
+        "icon": "$(inbox)",
+        "title": "JDH Backlog: Move Card to Inbox"
+      },
+      {
+        "category": "JDH Backlog",
+        "command": "swasthalinkTodo.moveToNow",
+        "icon": "$(rocket)",
+        "title": "JDH Backlog: Move Card to Now"
+      },
+      {
+        "category": "JDH Backlog",
+        "command": "swasthalinkTodo.moveToNext",
+        "icon": "$(arrow-right)",
+        "title": "JDH Backlog: Move Card to Next"
+      },
+      {
+        "category": "JDH Backlog",
+        "command": "swasthalinkTodo.moveToLater",
+        "icon": "$(clock)",
+        "title": "JDH Backlog: Move Card to Later"
+      },
+      {
+        "category": "JDH Backlog",
+        "command": "swasthalinkTodo.moveToParked",
+        "icon": "$(archive)",
+        "title": "JDH Backlog: Move Card to Parked"
+      },
+      {
+        "category": "JDH Backlog",
+        "command": "swasthalinkTodo.moveToDone",
+        "icon": "$(check)",
+        "title": "JDH Backlog: Move Card to Done"
+      },
+      {
+        "category": "JDH Backlog",
+        "command": "swasthalinkTodo.moveCardTo",
+        "title": "JDH Backlog: Move Card To…"
+      },
+      {
+        "category": "JDH Backlog",
+        "command": "swasthalinkTodo.newCard",
+        "icon": "$(add)",
+        "title": "JDH Backlog: New Card"
+      },
+      {
+        "category": "JDH Backlog",
+        "command": "swasthalinkTodo.openCard",
+        "icon": "$(search)",
+        "title": "JDH Backlog: Go to Card…"
+      },
+      {
+        "category": "JDH Backlog",
+        "command": "swasthalinkTodo.refresh",
+        "icon": "$(refresh)",
+        "title": "JDH Backlog: Refresh"
+      },
+      {
+        "category": "JDH Backlog",
+        "command": "swasthalinkTodo.revealCard",
+        "title": "JDH Backlog: Reveal Card"
+      }
+    ],
+    "configuration": {
+      "properties": {
+        "swasthalinkTodo.filePath": {
+          "default": "",
+          "description": "Path to todo.md or TODOS.md (absolute, or relative to the workspace folder). Leave empty to auto-detect either name, case-insensitively.",
+          "type": "string"
+        },
+        "swasthalinkTodo.showStatusBar": {
+          "default": true,
+          "description": "Show Now / Inbox card counts in the status bar.",
+          "type": "boolean"
+        }
+      },
+      "title": "JDH Backlog"
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "swasthalinkTodo.revealCard",
+          "when": "false"
+        }
+      ],
+      "editor/context": [
+        {
+          "group": "9_todo@1",
+          "submenu": "swasthalinkTodo.cardMenu",
+          "when": "editorTextFocus && editorLangId == markdown"
+        }
+      ],
+      "swasthalinkTodo.cardMenu": [
+        {
+          "command": "swasthalinkTodo.moveToNow",
+          "group": "move@1"
+        },
+        {
+          "command": "swasthalinkTodo.moveToNext",
+          "group": "move@2"
+        },
+        {
+          "command": "swasthalinkTodo.moveToLater",
+          "group": "move@3"
+        },
+        {
+          "command": "swasthalinkTodo.moveToParked",
+          "group": "move@4"
+        },
+        {
+          "command": "swasthalinkTodo.moveToDone",
+          "group": "move@5"
+        },
+        {
+          "command": "swasthalinkTodo.moveToInbox",
+          "group": "move@6"
+        },
+        {
+          "command": "swasthalinkTodo.newCard",
+          "group": "new@1"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "swasthalinkTodo.moveToNow",
+          "group": "move@1",
+          "when": "view == swasthalinkTodo.backlog && viewItem == todoCard"
+        },
+        {
+          "command": "swasthalinkTodo.moveToNext",
+          "group": "move@2",
+          "when": "view == swasthalinkTodo.backlog && viewItem == todoCard"
+        },
+        {
+          "command": "swasthalinkTodo.moveToLater",
+          "group": "move@3",
+          "when": "view == swasthalinkTodo.backlog && viewItem == todoCard"
+        },
+        {
+          "command": "swasthalinkTodo.moveToParked",
+          "group": "move@4",
+          "when": "view == swasthalinkTodo.backlog && viewItem == todoCard"
+        },
+        {
+          "command": "swasthalinkTodo.moveToDone",
+          "group": "move@5",
+          "when": "view == swasthalinkTodo.backlog && viewItem == todoCard"
+        },
+        {
+          "command": "swasthalinkTodo.moveToInbox",
+          "group": "move@6",
+          "when": "view == swasthalinkTodo.backlog && viewItem == todoCard"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "swasthalinkTodo.newCard",
+          "group": "navigation",
+          "when": "view == swasthalinkTodo.backlog"
+        },
+        {
+          "command": "swasthalinkTodo.openCard",
+          "group": "navigation",
+          "when": "view == swasthalinkTodo.backlog"
+        },
+        {
+          "command": "swasthalinkTodo.refresh",
+          "group": "navigation",
+          "when": "view == swasthalinkTodo.backlog"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "id": "swasthalinkTodo.cardMenu",
+        "label": "JDH Backlog Card"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "swasthalinkTodo.backlog",
+          "name": "Backlog"
+        }
+      ]
+    }
+  },
+  "description": "Color-coded backlog management with drag-and-drop for Markdown task cards",
+  "devDependencies": {
+    "@types/node": "^20.12.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.5"
+  },
+  "displayName": "JDH Backlog",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "license": "MIT",
+  "main": "./dist/extension.js",
+  "name": "jdh-backlog",
+  "publisher": "jhapadigitalholdings",
+  "scripts": {
+    "compile": "tsc -p ./",
+    "vscode:prepublish": "npm run compile",
+    "watch": "tsc -watch -p ./"
+  },
+  "version": "0.2.0",
+  "icon": "icon.png",
+  "keywords": [
+    "backlog",
+    "kanban",
+    "todo",
+    "task-management",
+    "drag-and-drop"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TedsTech/JDH-Backlog.git"
+  }
+}
