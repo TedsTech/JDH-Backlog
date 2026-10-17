@@ -6,7 +6,7 @@ A VS Code extension for managing Markdown backlogs. Cards are grouped under
 ## Install
 
 1. In VS Code, open **Extensions → … → Install from VSIX…**.
-2. Select `jdh-backlog-0.2.0.vsix`.
+2. Select `jdh-backlog-0.2.2.vsix`.
 3. Open the folder containing `todo.md`, `TODOS.md`, or a case variation of
    either filename. Find **Backlog** under **View: Open View**.
 
@@ -69,8 +69,8 @@ registries and store them as repository Actions secrets named `VSCE_PAT` and
 To publish automatically from GitHub, push a tag matching the package version:
 
 ```sh
-git tag v0.2.0
-git push origin v0.2.0
+git tag v0.2.2
+git push origin v0.2.2
 ```
 
 The `Publish JDH Backlog` workflow compiles the source, runs the tests, checks
