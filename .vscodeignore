@@ -5,5 +5,7 @@ src/**
 .gitignore
 .git/**
 test/**
+tsconfig.json
+icon.svg
 **/*.map
 node_modules/**
